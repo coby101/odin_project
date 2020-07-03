@@ -48,18 +48,19 @@ def decode_secret_message ()
   puts "The secret message is:  \"#{decode_ceasar_cipher(message, key.to_i)}\""
 end
 
+def circular_shift(value, range, shift)
+  shifted_value = value + (shift % range.size)
+  (range.include? shifted_value) ? shifted_value : shifted_value - range.size
+end
+
 # Cipher encoder
 def encode_ceasar_cipher (str, offset)
   normalized_offset = offset % ALPHA_SIZE
   coded_chars = []
   str.each_byte do |c|
     coded_chars.push case
-                     when c.between?(SML_A, SML_Z - normalized_offset) || c.between?(CAP_A, CAP_Z - normalized_offset)
-                       c + normalized_offset
-                     when c.between?(SML_Z - (normalized_offset - 1), SML_Z)
-                       c - (ALPHA_SIZE - normalized_offset)
-                     when c.between?(CAP_Z - (normalized_offset - 1), CAP_Z)
-                       c - (ALPHA_SIZE - normalized_offset)
+                     when c.between?(SML_A, SML_Z) then circular_shift(c, SML_A..SML_Z, offset)
+                     when c.between?(CAP_A, CAP_Z) then circular_shift(c, CAP_A..CAP_Z, offset)
                      else c
                      end
   end
