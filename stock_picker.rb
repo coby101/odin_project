@@ -1,5 +1,3 @@
-require "pry"
-
 $trades = []
 
 def stock_picker(history, verbose = false)
@@ -7,8 +5,7 @@ def stock_picker(history, verbose = false)
   price_yesterday = 0
   movement = 'none'
   history.each_with_index do |price_today, day|
-    if day == 0 then
-      price_yesterday = price_today
+    if day == 0 then price_yesterday = price_today
     else
       if price_yesterday < price_today then
         $trades.each do |trade|
