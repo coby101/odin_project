@@ -10,7 +10,7 @@
 #  - there are no message length constraints
 #     - long messages may not present that nicely
 #
-################################################            
+################################################
 
 require 'readline'
 
@@ -25,25 +25,25 @@ SML_Z = 122
 
 # little utility for getting user input without moving to a new line
 #   credit: ma11hew28 on https://stackoverflow.com/questions/2889720/
-def get_input(prompt="", newline=false)
+def get_input(prompt = '', newline = false)
   prompt += "\n" if newline
-  Readline.readline(prompt, true).squeeze(" ").strip
+  Readline.readline(prompt, true).squeeze(' ').strip
 end
 
-def create_secret_message ()
-  message = get_input("Enter the message you want to encode: ")
-  key = get_input("Enter the cipher key (an integer value): ")
+def create_secret_message
+  message = get_input('Enter the message you want to encode: ')
+  key = get_input('Enter the cipher key (an integer value): ')
   until key.to_i.to_s == key
-    key = get_input("The cipher key must be an integer value: ")
+    key = get_input('The cipher key must be an integer value: ')
   end
   puts "This is your coded message:  \"#{encode_ceasar_cipher(message, key.to_i)}\""
 end
 
-def decode_secret_message ()
-  message = get_input("Enter the message you want to decode: ") 
-  key = get_input("Enter the cipher key (an integer value): ")
+def decode_secret_message
+  message = get_input('Enter the message you want to decode: ')
+  key = get_input('Enter the cipher key (an integer value): ')
   until key.to_i.to_s == key
-    key = get_input("The cipher key must be an integer value: ")
+    key = get_input('The cipher key must be an integer value: ')
   end
   puts "The secret message is:  \"#{decode_ceasar_cipher(message, key.to_i)}\""
 end
@@ -55,7 +55,7 @@ def circular_shift(value, range, shift)
   (range.include? shifted_value) ? shifted_value : shifted_value - range.size
 end
 
-def encode_ceasar_cipher (str, offset)
+def encode_ceasar_cipher(str, offset)
   coded_chars = []
   str.each_byte do |c|
     coded_chars.push case
@@ -67,18 +67,18 @@ def encode_ceasar_cipher (str, offset)
   coded_chars.pack("c*")
 end
 
-def decode_ceasar_cipher (str, offset)
+def decode_ceasar_cipher(str, offset)
   encode_ceasar_cipher(str, -offset)
 end
 
 
 # test code
-def test_cipher ()
+def test_cipher
   test_string = "ABCDWXYZ abcdwxyz 1234567890 ,::<>?\"':=\t!@#$%"
   results = []
-  for i in -100..100 do
+  (-100..100).each do |i|
     results.push test_string == decode_ceasar_cipher(encode_ceasar_cipher(test_string, i), i)
   end
-  if results.all? {|elt| elt} then puts "All good" else "houston, we have a problem" end
+  if results.all? { |elt| elt } then puts 'All good' else 'houston, we have a problem' end
 end
 
