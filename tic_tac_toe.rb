@@ -27,10 +27,10 @@ def welcome_players(num, tok_len)
   puts 'Welcome to Newbie Ruby Tic Tac Toe!'
   puts "Let's get some details on who's playing..."
   Player.create_players num, tok_len
-  puts "\nGreat, thanks\n\n"
 end
 
 def splash_screen(players)
+  puts "\nReady to go.  Here's what to do:\n\n"
   puts 'On each turn, examine the board and then enter your play as an a, b or c for '
   puts 'the row and 1, 2 or 3 for the column. For example, enter "a 1" (without the '
   puts "quotations) for the top left corner, and \"c 3\" for the bottom right corner.\n\n"
